@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
+
+
+    <th:block th:fragment="content">
+
+        <style>
+            .uploadResult {
+                width: 100%;
+                height: 150px;
+                margin-top: 10px;
+            }
+
+            .uploadResult ul {
+                display: flex;
+                flex-flow: row;
+                justify-content: center;
+                align-items: center;
+                vertical-align: top;
+                overflow: auto;
+            }
+
+            .uploadResult ul li {
+                list-style: none;
+                padding: 10px;
+                margin-left: 2em;
+            }
+
+            .uploadResult ul li img {
+                width: 100px;
+            }
+        </style>
+
+        <div class="center">
+            <form th:action="@{/houspace/write}" th:method="post">
+                <div class="post">
+
+                    <div class="postA">
+                        <a th:href="@{/houspace/main}"><i class="fas fa-chevron-left"></i></a>
+                        <h1>공간 등록하기</h1>
+                        <button type="submit" id="write_btn">완료</button>
+                    </div>
+
+                    <div class="postdiv">
+                        <div class="postB">
+                            <div>
+                                <input class="posttitle" type="text" name="title" id="b_title"
+                                    placeholder="제목을 입력하세요." />
+                            </div>
+                            <div>
+                                <textarea class="postcontent" name="content" id="b_content" cols="100" rows="30"
+                                    placeholder="공간소개"></textarea>
+                            </div>
+
+                            <div>
+                                <textarea class="postcontent" name="notice" id="b_notice" cols="100" rows="30"
+                                    placeholder="사용시 주의사항"></textarea>
+                            </div>
+
+                        </div>
+
+                        <div style="margin: auto; width: 100%;">
+                            <div class="category"></div>
+                            <div class="form-group fileForm">
+                                <label>Image Files</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input files" id="fileInput" multiple>
+                                    <label class="custom-file-label" data-browse="Browse"></label>
+                                </div>
+                            </div>
+
+                            <div class="box"></div>
+
+                            <span>이곳에 파일을 끌어다 놓으세요</span>
+                            <div class="uploadResult" style="margin-bottom:15px;">
+                                <ul style="text-align:center;"></ul>
+                            </div>
+
+                            <div class="bottom-line input-group-prepend tag">
+
+                                <input type="radio" name="cgNum" id="b_cgNum" th:each="cgList : ${cgList}"
+                                    th:value="${cgList.cgNum}" th:text="${cgList.cgName}">
+
+                            </div>
+
+                            <div class="date">
+                                <input class="bottom-line" type="date" name="availableDate" id="b_availableDate"
+                                    placeholder="날짜입력" />
+                            </div>
+
+                            <!-- 시간 부터 인원까지 선택 option value none 삭제 220706 --------------------------------------------------->
+                            <div class="time">
+                                <select class="bottom-line" name="availableTime" id="b_availableTime">
+                                    <option value="">=== 시간 선택 ===</option>
+                                    <option value="12:00 ~ 13:00">12:00 ~ 13:00</option>
+                                    <option value="13:00 ~ 14:00">13:00 ~ 14:00</option>
+                                    <option value="14:00 ~ 15:00">14:00 ~ 15:00</option>
+                                    <option value="15:00 ~ 16:00">15:00 ~ 16:00</option>
+                                    <option value="16:00 ~ 17:00">16:00 ~ 17:00</option>
+                                    <option value="17:00 ~ 18:00">17:00 ~ 18:00</option>
+                                    <option value="18:00 ~ 19:00">18:00 ~ 19:00</option>
+                                    <option value="19:00 ~ 20:00">19:00 ~ 20:00</option>
+                                </select>
+                            </div>
+
+                            <!--                            220705 수정 | price -> writeprice 클래스 명 변경 (메인페이지 price와 클래스 명 중복) -->
+                            <div class="writeprice">
+                                <select class="bottom-line" name="price" id="b_price">
+                                    <option value="">=== 가격 선택 ===</option>
+                                    <option value="5000">5,000원</option>
+                                    <option value="10000">10,000원</option>
+                                    <option value="15000">15,000원</option>
+                                    <option value="20000">20,000원</option>
+                                    <option value="25000">25,000원</option>
+                                    <option value="30000">30,000원</option>
+                                </select>
+                            </div>
+                            <!--                            220705 수정 | price -> writeprice 클래스 명 변경 (메인페이지 price와 클래스 명 중복)-->
+
+                            <div class="people">
+                                <select class="bottom-line" name="people" id="b_people">
+                                    <option value="">=== 인원 선택 ===</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+
+                            </div>
+
+
+                            <!-- address: 팝업으로 띄우는 경우 -------------------------------------------------->
+                            <div style="display: flex; padding: 5px; width: 100%;">
+                                <input type="text" id="sample4_postcode" placeholder="우편번호" style="padding: 5px">
+                                <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"
+                                    class="writebtn" style="padding: 5px">
+                            </div>
+
+                            <div class="address">
+                                <input type="text" id="sample4_roadAddress" placeholder="도로명주소" style="padding: 5px">
+                                <input type="text" name="address" id="sample4_jibunAddress" placeholder="지번주소"
+                                    style="padding: 5px">
+                                <span id="guide" style="color:#999;display:none"></span>
+                                <input type="text" id="sample4_detailAddress" placeholder="상세주소" style="padding: 5px">
+                                <input type="text" id="sample4_extraAddress" placeholder="참고항목" style="padding: 5px">
+                            </div>
+
+                            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                            <script>
+                                //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+                                function sample4_execDaumPostcode() {
+                                    new daum.Postcode({
+                                        oncomplete: function (data) {
+                                            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                                            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                                            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                                            var roadAddr = data.roadAddress; // 도로명 주소 변수
+                                            var extraRoadAddr = ''; // 참고 항목 변수
+
+                                            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                            if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                                                extraRoadAddr += data.bname;
+                                            }
+                                            // 건물명이 있고, 공동주택일 경우 추가한다.
+                                            if (data.buildingName !== '' && data.apartment === 'Y') {
+                                                extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                            }
+                                            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                            if (extraRoadAddr !== '') {
+                                                extraRoadAddr = ' (' + extraRoadAddr + ')';
+                                            }
+
+                                            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                            document.getElementById('sample4_postcode').value = data.zonecode;
+                                            document.getElementById("sample4_roadAddress").value = roadAddr;
+                                            document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+
+                                            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                                            if (roadAddr !== '') {
+                                                document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                                            } else {
+                                                document.getElementById("sample4_extraAddress").value = '';
+                                            }
+
+                                            var guideTextBox = document.getElementById("guide");
+                                            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                                            if (data.autoRoadAddress) {
+                                                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                                                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                                                guideTextBox.style.display = 'block';
+
+                                            } else if (data.autoJibunAddress) {
+                                                var expJibunAddr = data.autoJibunAddress;
+                                                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                                                guideTextBox.style.display = 'block';
+                                            } else {
+                                                guideTextBox.innerHTML = '';
+                                                guideTextBox.style.display = 'none';
+                                            }
+                                        }
+                                    }).open();
+                                }
+
+                            </script>
+                            <!-- address: 팝업으로 띄우는 경우 -->
+
+
+                            <div class="email">
+                                <input class="bottom-line" type="hidden" name="email" th:value="${gmail}" id="b_email"
+                                    placeholder="이메일입력" />
+                            </div>
+                            <!--                <div class="nickName">-->
+                            <!--                    <input class="bottom-line" type="text" name="nickName" id="b_nickName" placeholder="닉네임입력"/>-->
+                            <!--                </div>-->
+                            <div class="phone">
+                                <input class="bottom-line" type="text" name="phoneNumber" id="b_phoneNumber"
+                                    placeholder="전화번호입력" />
+                            </div>
+                        </div>
+                        <br>
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <!-- 파일 형식 대문자 추가 (0630.오채영) -->
+        <script>
+            $(document).ready(function (e) {
+
+                var regex = new RegExp("(.*?)\.(gif|jpg|png|svg|ico|GIF|JPG|PNG|SVG|ICO)$");
+                var maxSize = 10485760; //10MB
+
+                function checkExtension(fileName, fileSize) {
+
+                    if (fileSize >= maxSize) {
+                        alert("파일 사이즈 초과");
+                        return false;
+                    }
+
+                    if (!regex.test(fileName)) {
+                        alert("이미지파일만 업로드할 수 있습니다.");
+                        return false;
+                    }
+                    return true;
+                }
+
+                $(".custom-file-input").on("change", function () {
+
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+                    var formData = new FormData();
+                    var inputFile = $(this);
+                    var files = inputFile[0].files;
+                    var appended = false;
+
+                    for (var i = 0; i < files.length; i++) {
+
+                        if (!checkExtension(files[i].name, files[i].size)) {
+                            return false;
+                        }
+
+                        console.log(files[i]);
+                        formData.append("uploadFiles", files[i]);
+                        appended = true;
+                    }
+
+                    //upload를 하지 않는다.
+                    if (!appended) {
+                        return;
+                    }
+
+                    for (var value of formData.values()) {
+                        console.log(value);
+                    }
+
+                    var file = $(this).siblings(".custom-file-label");
+                    //실제 업로드 부분
+                    //upload ajax
+                    $.ajax({
+                        url: '/uploadAjax',
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (result) {
+                            console.log(result);
+                            showResult(result);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                        }
+                    }); //$.ajax
+
+                }); //end change event
+
+
+                function showResult(uploadResultArr) {
+
+                    var uploadUL = $(".uploadResult ul");
+
+                    var str = "";
+
+                    $(uploadResultArr).each(function (i, obj) {
+
+                        str += "<li data-name='" + obj.fileName + "' data-path='" + obj.folderPath + "' data-uuid='" + obj.uuid + "'>";
+                        str + " <div>";
+                        str += "<button type='button' data-file=\'" + obj.imageURL + "\' "
+                        str += "class='btn-warning btn-sm'>X</button><br>";
+                        str += "<img src='/display?fileName=" + obj.thumbnailURL + "'>";
+                        str += "</div>";
+                        str + "</li>";
+                    });
+
+                    uploadUL.append(str);
+                }
+
+                //파일삭제
+                $(".uploadResult ").on("click", "li button", function (e) {
+
+                    console.log("delete file");
+
+                    var targetFile = $(this).data("file");
+
+                    var targetLi = $(this).closest("li");
+
+                    $.ajax({
+                        url: '/removeFile',
+                        data: { fileName: targetFile },
+                        dataType: 'text',
+                        type: 'POST',
+                        success: function (result) {
+                            alert(result);
+                            targetLi.remove();
+                        }
+                    }); //$.ajax
+                });
+
+
+                //등록
+                $("#write_btn").on("click", function (e) {
+                    e.preventDefault();
+                    console.log($(".uploadResult ul li"));
+                    //업로드된 이미지가 없으면 중지
+                    if ($(".uploadResult ul li").length == 0) {
+                        alert("이미지가 없습니다.");
+                        return;
+                    }
+
+
+                    /* 입력 방지 추가 부분 *****************************/
+                    let inputTitle = $("#b_title").val();
+                    let inputContent = $("#b_content").val();
+                    let inputNotice = $("#b_notice").val();
+                    let inputCgNum = $("#b_cgNum");
+                    let inputDate = $("#b_availableDate").val();
+                    let inputTime = $("#b_availableTime").val();
+                    let inputPrice = $("#b_price").val();
+                    let inputPeople = $("#b_people").val();
+                    let inputAddress = $("#sample4_jibunAddress").val();
+                    let inputPhoneNumber = $("#b_phoneNumber").val();
+
+                    if (inputTitle == "") {
+                        alert("타이틀을 작성하세요.");
+                        return;
+                    }
+                    if (inputContent == "") {
+                        alert("내용을 작성하세요.");
+                        return;
+                    }
+                    if (inputNotice == "") {
+                        alert("주의사항을 작성하세요.");
+                        return;
+                    }
+
+
+
+     	        /* write.html 약 384번 라인 inputCategory 삭제 후 덮어쓰기 **********/
+                    var chk_radio = document.getElementsByName('cgNum');
+                    var sel_type = null;
+                    for (var i = 0; i < chk_radio.length; i++) {
+                        if (chk_radio[i].checked == true) {
+                            sel_type = chk_radio[i].value;
+                        }
+                    }
+                    if (sel_type == null) {
+                        alert("카테고리를 선택하세요.");
+                        return;
+                    }
+                    /* write.html 약 384번 라인 inputCategory 삭제 후 덮어쓰기 **********/
+
+
+                    if (inputDate == "") {
+                        alert("날짜를 설정하세요.");
+                        return;
+                    }
+                    if (inputTime == "") {
+                        alert("시간을 설정 하세요.");
+                        return;
+                    }
+                    if (inputPrice == "") {
+                        alert("금액을 설정 하세요.");
+                        return;
+                    }
+                    if (inputPeople == "") {
+                        alert("인원수를 설정 하세요.");
+                        return;
+                    }
+                    if (inputAddress == "") {
+                        alert("주소를 입력하세요.");
+                        return;
+                    }
+                    if (inputPhoneNumber == "") {
+                        alert("전화번호를 입력허세요");
+                        return;
+                    }
+                    /* 입력 방지 추가 부분 *****************************/
+
+
+
+
+                    var str = "";
+
+                    $(".uploadResult li").each(function (i, obj) {
+                        console.log(obj)
+                        var target = $(obj);
+
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].imgName' value='" + target.data('name') + "'>";
+
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].path' value='" + target.data('path') + "'>";
+
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].uuid' value='" + target.data('uuid') + "'>";
+
+                    });
+
+                    $(".box").html(str);
+
+                    $("form").submit();
+
+                });
+
+                //파일 드래그시 새창으로 열리는것 방지
+                $(".uploadResult").on("dragenter dragover", function (event) {
+                    //기본이벤트취소.새창이 열리는 것 방지
+                    event.preventDefault();
+                });
+                //파일 드롭시  파일업로드
+                $(".uploadResult").on("drop", function (event) {
+                    //기본이벤트취소.새창이 열리는 것 방지
+                    event.preventDefault();
+
+                    //FormData객체 생성. form태그에 대응하는 객체
+                    var formData = new FormData();
+
+                    //drop했을 때 파일의 목록을 구함
+                    var files = event.originalEvent.dataTransfer.files;
+
+                    var appended = false;
+
+                    for (var i = 0; i < files.length; i++) {
+
+                        if (!checkExtension(files[i].name, files[i].size)) {
+                            return false;
+                        }
+
+                        console.log(files[i]);
+                        formData.append("uploadFiles", files[i]);
+                        appended = true;
+                    }
+
+                    //upload를 하지 않는다.
+                    if (!appended) {
+                        return;
+                    }
+
+                    for (var value of formData.values()) {
+                        console.log(value);
+                    }
+
+                    var file = $(this).siblings(".custom-file-label");
+                    //실제 업로드 부분
+                    //upload ajax
+                    $.ajax({
+                        url: '/uploadAjax',
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (result) {
+                            console.log(result);
+
+                            showResult(result);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                        }
+                    }); //$.ajax
+
+                });
+
+            }); //document ready
+
+
+
+        </script>
+
+
+    </th:block>
+</th:block>

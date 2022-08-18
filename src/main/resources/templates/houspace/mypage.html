@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
+
+    <th:block th:fragment="content">
+
+        <div class="mypage">
+            <h1>회원정보</h1>
+
+            <div class="profileBG">
+                <div class="profileTie">
+                    <img th:src="@{/project/img/user.png}" alt="" class="profileimg">
+
+                    <div class="userinfo">
+                        <div class="userID">
+                            <h2>이메일</h2>
+                            <p>[[${gmail}]]</p>
+                        </div>
+
+                        <div class="userID">
+                            <h2>닉네임</h2>
+                            <p>[[${nickname}]]</p>
+                        </div>
+
+
+                        <!-- 타임리프 정보 추가 필요 (0704) ------------------------------------------------->
+                        <div class="userID">
+                            <h2>연락처</h2>
+                            <p>010-1111-2222</p>
+                        </div>
+                        <!-- 타임리프 정보 추가 필요 (0704) -->
+
+                        <!-- <div class="userID">
+                            <h2>자기소개</h2>
+                            <p class="userP">O.O</p>
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="usermodify">
+                        <button>수정</button>
+                </div>
+            </div>
+
+            <div class="booklist">
+                <h1>예약내역</h1>
+                <th:block th:each="dto : ${result.dtoList}">
+                    <div class="profileBG">
+                        <div class="profileTie">
+                            <img style="width: 150px; height: 85px;" class="booking"
+                                 th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                                 th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">
+
+                            <div class="bookinfo">
+                                <h4>이용예정</h4>
+                                <div style="margin: 0.2em;">
+                                    <h2>[[${dto.title}]]</h2>
+                                    <p>[[${dto.availableDate}]] ,
+                                        [[${dto.availableTime}]]시, [[${dto.people}]]명</p>
+                                    <h3>[[${dto.address}]]</h3>
+                                    <p>[[${dto.price}]]원</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="usermodify">
+                            <a th:href="@{/houspace/bookdelete(bookNum = ${dto.bookNum})}">
+                                <button>예약취소</button>
+                            </a>
+                            <a th:href="@{/houspace/view(bNum=${dto.bNum})}">
+                                <button>리뷰쓰기</button>
+                            </a>
+                        </div>
+                    </div>
+                </th:block>
+
+
+                <div class="mypost">
+                    <h1>내 게시글</h1>
+                    <th:block th:each="myDto : ${myResult.dtoList}">
+                        <div class="profileBG">
+                            <div class="profileTie">
+                                <img style="width: 150px; height: 85px;" class="booking"
+                                     th:if="${myDto.imageDTOList.size() > 0 && myDto.imageDTOList[0].path != null }"
+                                     th:src="|/display?fileName=${myDto.imageDTOList[0].getThumbnailURL()}|">
+
+
+                                <div class="bookinfo">
+                                    <div style="margin: 0.2em;">
+                                        <h2>[[${myDto.title}]]</h2>
+                                        <p>[[${myDto.availableDate}]]</p>
+                                        <p>[[${myDto.availableTime}]]</p>
+                                        <h3>[[${myDto.address}]]</h3>
+                                        <p>[[${myDto.price}]]0원</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <div class="usermodify">
+                            <a href="#">
+                                <button>수정</button>
+                            </a>
+                        </div>
+                    </div>
+                    </th:block>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </th:block>
+
+</th:block>

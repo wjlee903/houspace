@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
+
+    <th:block th:fragment="content">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min2.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/font-awesome/css/font-awesome.min.css}" />
+
+    <script type="text/javascript" th:src="@{/js/jquery-1.10.2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min2.js}"></script>
+</head>
+<body>
+
+
+<div class="container">
+
+        <div class="faqHeader">FAQ</div>
+
+
+        <th:block th:each="dto : ${result.dtoList}">
+            <!--                <div class="panel-group" id="accordion">-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="accordion"
+                           th:href="'#accordion_'+${dto.fno}">
+                            [[${dto.title}]]
+                        </a>
+                    </h4>
+                </div>
+                <div th:id="'accordion_'+${dto.fno}" class="'panel-collapse collapse">
+                    <div class="panel-body">
+                        [[${dto.content}]]
+                    </div>
+                </div>
+            </div>
+            <!--                </div>-->
+        </th:block>
+
+    </div>
+
+    <!--         추가되는 태그들-->
+    <ul class="pagination h-100 justify-content-center align-items-center" style="display:table; margin:20px auto;">
+        <li class="page-item " th:if="${result.prev}">
+            <a class="page-link" th:href="@{/houspace/faq(page= ${result.start -1})}" tabindex="-1">
+                Previous
+            </a>
+        </li>
+
+        <li th:class=" 'page-item ' + ${result.page == page? 'active' : ''} " th:each="page: ${result.pageList}">
+            <a class="page-link" th:href="@{/houspace/faq(page = ${page})}">
+                [[${page}]]
+            </a>
+        </li>
+
+        <li class="page-item" th:if="${result.next}">
+            <a class="page-link" th:href="@{/houspace/faq(page= ${result.end + 1})}">
+                Next
+            </a>
+        </li>
+    </ul>
+    <!--        추가되는 태그 끝-->
+
+
+    <!-- Bootstrap FAQ - END -->
+    <style>
+        .faqHeader {
+            font-size: 27px;
+            margin: 20px;
+        }
+
+        .panel-heading [data-toggle="collapse"]:after {
+            font-family: 'Glyphicons Halflings';
+            content: "▼";
+            float: right;
+            color: #F58723;
+            font-size: 18px;
+            line-height: 22px;
+            /* rotate "play" icon from > (right arrow) to down arrow */
+            -webkit-transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            transform: rotate(-180deg);
+        }
+
+        .panel-heading [data-toggle="collapse"].collapsed:after {
+            /* rotate "play" icon from > (right arrow) to ^ (up arrow) */
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            transform: rotate(360deg);
+            color: #454444;
+        }
+        </style>
+</body>
+
+</th:block>
+
+</th:block>
+
+</html>

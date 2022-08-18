@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="setContent(content)">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <th:block th:fragment="css">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+                  rel="stylesheet">
+            <link rel="stylesheet" th:href="@{/project/reset.css}">
+            <link rel="stylesheet" th:href="@{/project/css.css}">
+            <link rel="icon" type="image/png" sizes="32x32" th:href="@{/project/img/favicon-32x32.png}">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+            <script src="https://kit.fontawesome.com/212c684e5f.js" crossorigin="anonymous"></script>
+        </th:block>
+
+    </head>
+    <body>
+    <div class="main">
+        <header>
+            <div class="head">
+                <div class="logo">
+                    <a th:href="@{/houspace/main}"><img th:src="@{/project/img/자산 2.png}" alt=""></a>
+                </div>
+
+                <div class="account">
+                    <a href="#">
+                        <a th:href="@{/houspace/write}">
+                            <img th:src="@{/project/img/pen.png}" alt="" class="pen">
+                        </a>
+                    </a>
+                    <button class="admin">
+                        <a>
+                            <img th:src="@{/project/img/user.png}" alt="" class="user">
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="toggle-line">
+                <li class="myList display">
+                    <a th:href="@{/houspace/mypage}">내 정보</a>
+
+                    <div class="toggleLine"> </div>
+                    <a th:href="@{/logout}">로그아웃</a>
+                </li>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="">
+                <th:block th:replace="${content}">
+
+                </th:block>
+            </div>
+        </header>
+    </div>
+
+    <footer class="footer">
+        <div class="basiccontainer">
+            <div class="footA">
+                <div class="footlogo"><img th:src="@{/project/img/자산 2.png}" alt=""></div>
+            </div>
+
+            <nav class="footB">
+                <div class="footul">
+                    <ul>
+                        <li><a href="#">이용약관</a></li>
+                        <li><a href="#">개인정보처리방침</a></li>
+                        <li><a href="#">사업자정보확인</a></li>
+                    </ul>
+
+                    <ul>
+                        <li><a href="">인재채용</a></li>
+                        <li><a th:href="@{/houspace/faq}">자주묻는질문</a></li>
+                        <li><a th:href="@{/houspace/report}">신고하기</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="footC">
+                <p>상호명: 주식회사 하우스페이스   |   대표: OOO    |   사업자등록번호: 123-45-67890    |    통신판매업신고번호: 2022-서울강남-12345</p>
+                <p>사업자등록정보 영업소재지: 서울특별시 강남구 삼성로    |    이메일: support@houspace.kr    |    대표전화: 1234-5678(평일 오후 2시 ~ 오후 6시)</p>
+            </div>
+
+            <div class="footD">
+                <p>하우스페이스는 통신판매중개자이며 통신판매의 당사자가 아닙니다. 따라서 하우스페이스는 공간 거래정보 및 거래에 대해 책임지지 않습니다.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script th:src="@{/project/js/script.js}"></script>
+
+
+    </body>
+
+</th:block>
+</html>

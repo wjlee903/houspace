@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOUSPACE</title>
+    <th:block th:replace="layout/basic :: css"></th:block>
+</head>
+
+<body>
+    <div class="main">
+        <header>
+            <div class="head">
+                <div class="logo">
+                    <a href="/houspace/main"><img th:src="@{/project/img/자산 2.png}" alt=""></a>
+                </div>
+
+                <div class="account">
+                    <a href="/houspace/write">
+                        <img th:src="@{/project/img/pen.png}" alt="" class="pen">
+                    </a>
+                    <a href="/houspace/mypage" class="admin">
+                        <img th:src="@{/project/img/user.png}" alt="" class="user">
+                    </a>
+                </div>
+            </div>
+
+            <div class="line"></div>
+        </header>
+        <div class="contents">
+
+            <form th:action="@{/houspace/join}" method="post">
+
+                <div class="loginform">
+                    <div class="logininput">
+                        <p>이메일</p>
+                        <input type="email" id="email" name="email" class="input" autofocus>
+                        <input type="button" id="confirm_email_btn" style="cursor: pointer" value="중복확인" />
+                    </div>
+
+                    <div class="logininput">
+                        <p>비밀번호</p>
+                        <input type="password" id="pw" name="pw" class="input pw">
+                    </div>
+
+                    <div class="logininput">
+                        <p>비밀번호 확인</p>
+                        <input type="password" id="pw2" name="pw2" class="input pw">
+                        <p id="checkPw"></p>
+                    </div>
+
+                    <div class="logininput">
+                        <p>연락처</p>
+                        <input type="tel" class="input">
+                    </div>
+
+                    <div class="logininput">
+                        <p>닉네임</p>
+                        <input type="text" id="nickName" name="nickName" class="input">
+                        <input type="button" id="confirm_nickName_btn" style="cursor: pointer" value="중복확인" />
+                    </div>
+                    <input type="hidden" name="fromSocial" value="0" placeholder="일반 회원가입">
+                    <div class="check">
+                        <div style="display: flex; align-items: center;">
+                            <input type="checkbox" id="checkBox">
+                            <label for="">가입 약관에 동의합니다.</label>
+                        </div>
+                        <div style="padding-left: 20px;">
+                            <a href="#">
+                                <p>이용약관(필수)</p>
+                            </a>
+                            <a href="#">
+                                <p>개인정보취급방침(필수)</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="loginIDbtn">
+                        <a href="#">
+                            <button type="submit" class="btn">
+                                <p>회원가입</p>
+                            </button>
+                        </a>
+                    </div>
+
+                </div>
+            </form>
+
+
+            <div class="login">
+                <p>SNS로 간편하게 시작하기</p>
+                <div class="loginA">
+                    <!-- 구글 로그인 -->
+                    <a href="#">
+                        <img th:src="@{/project/img/google.png}" alt="" class="loginimg">
+                    </a>
+
+
+                    <!-- 네이버 로그인 -->
+                    <a href="#">
+                        <img th:src="@{/project/img/naver.png}" alt="" class="loginimg">
+                    </a>
+
+
+                    <!-- 카카오 로그인 -->
+                    <a href="#">
+                        <img th:src="@{/project/img/kakao.png}" alt="" class="loginimg">
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <script th:src="@{/project/a.js}"></script>
+
+    </div>
+
+    <script th:inline="javascript">
+        $(document).ready(function (e) {
+
+            /* 220706 추가 : 중복 확인 버튼 눌렀는지 체크 **************************/
+            let idCheckCnt = 0;
+            let nickNameCheckCnt = 0;
+            /* 220706 추가 : 중복 확인 버튼 눌렀는지 체크 **************************/
+
+            /* 2022.07.03. 추가 - 이메일 중복 확인 *****************************/
+            $('#confirm_email_btn').click(function () {
+                idCheckCnt += 1;    // 220705 추가
+                var logEmail = $("#email").val();
+                var data = { email: logEmail };
+                console.log(data);
+                $.ajax({
+                    url: '/login/email/' + logEmail,
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "text",
+                    success: function (result) {
+
+                        console.log("result: " + result);
+
+                        alert(result);
+                    }
+                })
+            });
+            /* 2022.07.03. 추가 - 이메일 중복 확인 *****************************/
+
+            /* 2022.07.03. 추가 - 닉네임 중복 확인 *****************************/
+            $('#confirm_nickName_btn').click(function () {
+                nickNameCheckCnt += 1;  // 220706 추가
+                var logNickName = $("#nickName").val();
+                var data = { nickName: logNickName };
+                console.log(data);
+                $.ajax({
+                    url: '/login/nickname/' + logNickName,
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "text",
+                    success: function (result) {
+                        console.log("result: " + result);
+                        alert(result);
+                    }
+                })
+            });
+            /* 2022.07.03. 추가 - 닉네임 중복 확인 *****************************/
+
+            /* 비밀번호 확인 ********************************************/
+            $('.pw').keyup(function () {
+                let pass1 = $("#pw").val();
+                let pass2 = $("#pw2").val();
+
+                if (pass1 != "" || pass2 != "") {
+                    if (pass1 == pass2) {
+                        $("#checkPw").html("일치");
+                        $("#checkPw").attr("color", "green");
+                    } else {
+                        $("#checkPw").html("불일치");
+                        $("#checkPw").attr("color", "red");
+                    }
+                }
+            });
+            /* 비밀번호 확인 ********************************************/
+
+            /* 회원가입 버튼 클릭시 빈값 확인 ***************************/
+            $(".btn").click(function (e) {
+                e.preventDefault();
+                let actionForm = $("form");
+                let joinEmail = $("#email").val();
+                let joinPw = $("#pw").val();
+                let joinNickName = $("#nickName").val();
+                let checkBox = $("#checkBox");
+
+                if (joinEmail == "") {
+                    alert("이메일을 작성하세요.");
+                    return;
+                }
+                else if (joinPw == "") {
+                    alert("비밀번호를 작성하세요.");
+                    return;
+                }
+                else if (joinNickName == "") {
+                    alert("닉네임을 작성하세요.");
+                    return;
+                }
+                else if ($("#checkBox").is(':checked') == false) {
+                    alert("약관에 동의하셔야합니다.");
+                    return;
+                }
+                /* 중복 체크 안했을시 리턴 *************************/
+                else if (idCheckCnt < 1) {
+                    alert("이메일 중복확인을 하셔야 합니다.");
+                    return;
+                } else if (nickNameCheckCnt < 1) {
+                    alert("닉네임 중복확인을 하셔야 합니다.");
+                    return;
+                }
+                /* 중복 체크 안했을시 리턴 *************************/
+                actionForm.submit();
+
+            });
+            /* 회원가입 버튼 클릭시 빈값 확인 ***************************/
+
+
+
+        });
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+</th:block>
+
+</html>

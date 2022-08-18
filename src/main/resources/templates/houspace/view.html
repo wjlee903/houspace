@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
+
+    <th:block th:fragment="content">
+
+        <!-- style image 파일 업로드 쪽 관련 ----------------------------------------------->
+        <style>
+            button {
+                color: white;
+            }
+
+            .uploadResult {
+                width: 100%;
+                background-color: gray;
+                margin-top: 10px;
+            }
+
+            .uploadResult ul {
+                display: flex;
+                flex-flow: row;
+                justify-content: center;
+                align-items: center;
+                vertical-align: top;
+                overflow: auto;
+            }
+
+            .uploadResult ul li {
+                list-style: none;
+                padding: 10px;
+                margin-left: 2em;
+            }
+
+            .uploadResult ul li img {
+                width: 300px;
+            }
+        </style>
+        <!-- style image 파일 업로드 쪽 관련 ----------------------------------------------->
+
+        <link rel="stylesheet" th:href="@{/project/css/reset.css}">
+        <link rel="stylesheet" th:href="@{/project/css/view.css}">
+
+        <div class="page">
+
+            <form>
+
+                <div class="detail">
+                    <div class="detailA">
+                        <img class="imgview" th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                             th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">
+
+                        <div class="detailA1">
+                            <div class="detailA2">
+                                <h1>[[${dto.title}]]</h1>
+                                <a id="share" href="#"><i class="fas fa-share fa-2x"></i></a>
+                                <a href="#"><i class="fas fa-heart fa-2x"></i></a>
+                            </div>
+
+                            <div class="line"></div>
+
+                            <div class="detailA3">
+                                <h4>[[${dto.address}]]</h4>
+
+                                <div class="detailA4">
+
+                                    <!--                                220705 수정 | html 변경 -->
+                                    <div style="display: flex;">
+                                        <p>예약시간</p>
+                                        <p>[[${dto.availableTime}]] 까지</p>
+                                    </div>
+
+                                    <div style="display: flex;">
+                                        <p>수용인원</p>
+                                        <p>최대 [[${dto.people}]] 명</p>
+                                    </div>
+                                    <!--                                220705 수정 | html 변경 -->
+                                </div>
+                            </div>
+                            <div class="line"></div>
+
+                            <div class="detailA5">
+                                <div class="detailA6">
+                                    <div class="profileTie">
+                                        <img th:src="@{/project/img/user.png}" alt="">
+                                        <p>[[${dto.nickName}]]</p>
+                                    </div>
+                                    <p>[[${dto.price}]] 원</p>
+                                </div>
+
+                                <div class="detailA7">
+                                    <button th:if="${bookDTO} == false" id="book_btn">예약하기</button>
+                                    <button th:if="${bookDTO} == true" disabled>예약완료</button>
+                                    <a href="#">
+                                        <button>문의하기</button>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contain">
+                        <div class="write">
+                            <div class="detailB1">
+                                <h2>공간 소개</h2>
+                            </div>
+
+                            <div class="line"></div>
+
+                            <div style="padding: 3px;">
+                                <p> [[${dto.content}]] </p>
+                            </div>
+                        </div>
+
+                        <section class="detailC">
+                            <h2>주의사항</h2>
+
+                            <div class="line"></div>
+
+                            <div style="padding: 3px;">
+                                <p> [[${dto.notice}]] </p>
+                            </div>
+                        </section>
+
+                        <div class="detailB1">
+                            <h2>이용후기</h2>
+                            <p>[[${dto.reviewCnt}]]개</p>
+                            <h2>평균별점</h2>
+                            <p>[[${dto.avg}]]</p>
+                        </div>
+
+                        <div class="line"></div>
+                        <div>
+                            <div class="detailB2">
+
+                                <!--  리뷰 리스트 출력 장소      ------------------------------------------------------>
+                                <div class="list-group reviewList">
+
+                                </div>
+
+
+
+                                <!-- bootstrap cdn 추가 ------------------------------------------------------------------------->
+                                <link rel="stylesheet"
+                                      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+                                <!--                                <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>-->
+
+                                <script
+                                        src="https://code.jquery.com/jquery-3.6.0.min.js"
+                                        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                                        crossorigin="anonymous"></script>
+
+                                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+                                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+                                <!-- bootstrap cdn 추가 ------------------------------------------------------------------------->
+
+                                <button type="button" class="btn btn-info addReviewBtn">리뷰쓰기</button>
+
+                                <div class="reviewModal modal" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">리뷰쓰기</h4>
+
+                                                <button type="button" class="close" data-dismiss="modal" b
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <input type="hidden" class="form-control" name="bNum"
+                                                       th:value="${dto.bNum}" readonly/>
+                                                <input type="hidden" class="form-control" name="email"
+                                                       th:value="${gmail}" readonly/>
+
+                                                <!-- 리뷰 게시판에 쓸지말지 확인 후 수정 예정 (0704) -->
+
+                                                <div class="form-group">
+                                                    <label>닉네임</label>
+                                                    <input type="text" th:value="${nickname}" class="form-control"
+                                                           name="mid" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>평점 <span class="grade"></span> </label>
+                                                    <div class="starrr"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>리뷰<label>
+                                                        <input type="text" class="form-control" name="text"
+                                                               placeholder="리뷰 작성">
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    닫기
+                                                </button>
+                                                <button type="button" class="btn btn-primary reviewSaveBtn">저장하기
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script th:src="@{/project/starrr.js}"></script>
+                                <link th:href="@{/css/starrr.css}" rel="stylesheet">
+                                <link rel="stylesheet"
+                                      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+
+        </form>
+
+        <section class="detailE">
+            <h2>[[${dto.title}]]</h2>
+
+            <div class="line"></div>
+
+            <p>[[${dto.address}]]</p>
+
+            <div class="map">
+
+                <!--                지도 css추가-->
+                <div id="map"
+                     style="width:100%;height:350px;position:relative;left:0px;right:0px;top:0px;bottom:0px;margin:auto;max-width:1130px;"></div>
+
+                <script type="text/javascript"
+                        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script>
+                <script th:inline="javascript">
+                    $(document).ready(function (e) {
+
+
+                        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                            mapOption = {
+                                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                                level: 3 // 지도의 확대 레벨
+                            };
+
+                        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+                        var geocoder = new kakao.maps.services.Geocoder();
+
+                        geocoder.addressSearch([[${dto.address}]], function (result, status) {
+
+                            // 정상적으로 검색이 완료됐으면
+                            if (status === kakao.maps.services.Status.OK) {
+
+                                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                                var marker = new kakao.maps.Marker({
+                                    map: map,
+                                    position: coords
+                                });
+
+                                var infowindow = new kakao.maps.InfoWindow({
+                                    content: '<div style="width:150px;text-align:center;padding:6px 0;">공간</div>'
+                                });
+                                infowindow.open(map, marker);
+
+                                map.setCenter(coords);
+                            }
+                        });
+
+                        $(".uploadResult li").click(function () {
+                            var file = $(this).data('file');
+                            console.log(file);
+                            $('.imageModal .modal-body').html("<img style='width:200%' src='/display?fileName=" + file + "&size=1' >")
+                            $(".imageModal").modal("show");
+                        });
+                        // 이미지 미리보기 모달
+
+                        /* 예약 버튼 모달 ****************************************/
+                        //나중에 구현
+                        /* 예약 버튼 모달 */
+
+                        var actionForm = $("form"); // form 태그 객체 가져오기
+
+
+                        /* 2022.07.03. 수정 - 현재 로그인한 정보 가져오기 **************************/
+                        var isGmail = [[${gmail}]]  // nogmail
+                        var isNickName = [[${nickname}]]    // nonickname
+                        var actionForm = $("form"); // form 태그 객체 가져오기
+
+                        /* 예약 하기 ***************************************************/
+                        $("#book_btn").on("click", function (e) {
+                            e.preventDefault(); // 전송 방지
+
+                            let conf = confirm("예약하시겠습니까?");
+                            if (conf) {
+                                if (isGmail == "nogmail") {
+                                    if (confirm("로그인이 필요합니다 로그인 하시겠습니까?")) {
+                                        location.href = "http://localhost:8181/houspace/mypage";
+                                    } else {
+                                        return;
+                                    }
+                                } else if (isGmail != "nogmail") {
+                                    alert("예약되었습니다.")
+                                    actionForm
+                                        .attr("action", "/houspace/booking")
+                                        .attr("method", "post")
+                                        .submit();
+                                }
+
+                            } else if (!conf) {
+                                return;
+                            }
+                        });
+                        /* 예약 하기 ***************************************************/
+
+
+                        <!-- Review Modal  -------------------------------------------------------->
+
+                        var grade = 0;
+                        var bnum = [[${dto.bNum}]];
+
+
+                        $('.starrr').starrr({
+                            rating: grade,
+                            change: function (e, value) {
+                                if (value) {
+                                    console.log(value);
+                                    grade = value;
+                                }
+                            }
+                        });
+
+
+                        var reviewModal = $(".reviewModal");
+                        var inputMid = $('input[name="mid"]');
+                        var inputText = $('input[name="text"]');
+                        var inputEmail = $('input[name="email"]');
+
+                        $(".addReviewBtn").click(function () {
+
+                            if (isGmail == "nogmail") {
+                                if (confirm("로그인이 필요합니다 로그인 하시겠습니까?")) {
+                                    location.href = "http://localhost:8181/houspace/mypage";
+                                } else {
+                                    return;
+                                }
+                            } else {
+
+                                inputText.val("");
+                                reviewModal.modal('show');
+                            }
+                        });
+
+                        $(".reviewSaveBtn").click(function () {
+                            var data = {
+                                bnum: bnum,
+                                grade: grade,
+                                text: inputText.val(),
+                                nickName: inputMid.val(),
+                                email: inputEmail.val()
+                            };
+
+                            console.log(data);
+
+                            $.ajax({
+
+                                url: '/reviews/' + bnum,
+                                type: 'POST',
+                                data: JSON.stringify(data),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "data",
+                                success: function (result) {
+
+                                    console.log("값 : " + result);
+                                }
+                            })
+
+                            reviewModal.modal('hide');
+                            getBoardReviews();
+
+                        });
+
+
+                        <!-- 리뷰목록 ----------------------------------------------------------------------------------->
+
+                        //페이지가 열리면 바로 리뷰 데이터들을 가져와서 사용한다.
+                        function getBoardReviews() {
+
+                            function formatTime(str) {
+                                var date = new Date(str);
+
+                                return date.getFullYear() + '/' +
+                                    (date.getMonth() + 1) + '/' +
+                                    date.getDate() + ' ' +
+                                    date.getHours() + ':' +
+                                    date.getMinutes();
+                            }
+
+                            $.getJSON("/reviews/" + bnum + "/all", function (arr) {
+                                var str = "";
+
+                                $.each(arr, function (idx, review) {
+
+                                    console.log(review);
+
+                                    switch (review.grade) {
+                                        case 1:
+                                            review.grade = "★";
+                                            break;
+                                        case 2:
+                                            review.grade = "★★";
+                                            break;
+                                        case 3:
+                                            review.grade = "★★★";
+                                            break;
+                                        case 4:
+                                            review.grade = "★★★★";
+                                            break;
+                                        case 5:
+                                            review.grade = "★★★★★";
+                                            break;
+                                        default:
+                                            review.grade = "☆☆☆☆☆";
+                                            break;
+                                    }
+
+
+                                    str += '    <div class="card-body" data-reviewnum=' + review.reviewnum + ' data-mid=' + review.mid + '>';
+                                    str += '    <h5 class="card-title">' + review.text + ' <span>' + review.grade + '</span></h5>';
+                                    str += '    <h6 class="card-subtitle mb-2 text-muted">' + review.nickName + '</h6>';
+                                    str += '    <p class="card-text">' + formatTime(review.regDate) + '</p>';
+                                    str += '    </div>';
+                                });
+
+
+                                // grade 숫자를 찾아서 별로 바꾸는 코드
+
+                                $(".reviewList").html(str);
+                            });
+
+                            $(".reviewgrade").each(function (idx, o) {
+
+                                console.log(o);
+                                $(this).starrr({rating: $(this).data("grade2"), readOnly: true});
+                            });
+
+                        }
+
+                        getBoardReviews();
+
+
+                        /* 로그인을 하지 않았거나 예약하지 않은 곳이라면 리뷰버튼 안보이게 */
+                        let bookEmail = [[${bookEmail}]]
+
+                        if (isGmail != "nogmail") {
+                            if (isGmail != bookEmail) {
+                                $(".addReviewBtn").hide();
+                            }
+                        } else if (isGmail == "nogmail") {
+                            $(".addReviewBtn").hide();
+                        }
+                        /* 로그인을 하지 않았거나 예약하지 않은 곳이라면 리뷰버튼 안보이게 */
+
+                        /* 공유 버튼 누르면 우선 url 복사하여 alert 창 띄움 *****************/
+                        $("#share").click(function (e) {
+                            e.preventDefault();
+                            var url = '';
+                            var textarea = document.createElement("textarea");
+                            document.body.appendChild(textarea);
+                            url = window.document.location.href;
+                            textarea.value = url;
+                            textarea.select();
+                            document.execCommand("copy");
+                            document.body.removeChild(textarea);
+                            alert("URL이 복사되었습니다.")
+                        });
+                        /* 공유 버튼 누르면 우선 url 복사하여 alert 창 띄움 *****************/
+
+
+                    });
+
+                </script>
+
+
+                <em class="link">
+                    <a href="javascript:void(0);"
+                       onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
+                        <p style="font-size: 12px; color: #5b5b5b !important; text-decoration: none;">혹시 주소 결과가 잘못 나오는
+                            경우에는 여기에 제보해주세요.</p>
+                    </a>
+                </em>
+
+
+            </div>
+        </section>
+
+        </div>
+
+    </th:block>
+
+</th:block>

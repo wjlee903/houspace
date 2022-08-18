@@ -1,0 +1,1191 @@
+/* 기본 설정 ---------------------------------------- */
+/* 기본색상 */
+:root {
+    --main-color: #929292;
+    --accent-color: #ECC641;
+    --dark-main-color: #343636;
+    --text-bright-color: #fff;
+    --icon-color: #fff;
+    --icon-bk-color: #ddd;
+    --gray-color: rgb(136, 136, 136);
+    --large-width: 1200px;
+    --middle-width: 1000px;
+    --small-width: 800px;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif !important;
+    height: 100vh;
+}
+.main{
+    min-height: 79.7%;
+    max-width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+/* 헤더 ---------------------------------------------------------- */
+.head {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+}
+
+
+.logo img{
+    height: 35px;
+    margin: 0 50px;
+}
+
+.logo a{
+    flex-basis: 70%;
+}
+
+.account {
+    display: flex;
+    flex-direction:row;
+    margin: 0px 20px;
+    font-size: 20px;
+    flex-basis: 20%;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.pen {
+    width: 20px;
+    padding: 0px 10px;
+    margin: 0px 20px;
+}
+
+.user {
+    width: 20px;
+    padding: 0px 10px;
+    margin: 0px 20px;
+    cursor: pointer;
+}
+
+.line {
+    max-width: 100%;
+    border-bottom: 2px solid rgb(128, 128, 128);
+    opacity: 30%;
+}
+
+
+/* 마이 메뉴 토글  ---------------------------------------------------------- */
+.toggle-line {
+    content: none;
+    display: flex;
+    justify-content: end;
+    width: 65%;
+    min-width: 400px;
+    margin: auto;
+}
+
+.display {
+    display: none;
+}
+
+.toggle {
+    position: absolute;
+    top:50px;
+    margin: 0px 10px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    background-color: whitesmoke;
+    width: 150px;
+    height:100px;
+    z-index: 99;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.toggleOut {
+    position: absolute;
+    top:50px;
+    margin: 0px 10px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    background-color: whitesmoke;
+    width: 150px;
+    height:100px;
+    z-index: 99;
+    opacity:0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    animation: fadeOut 0.5s;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.myList {
+    /* padding: 3px 4px; */
+    font-size: 17px;
+}
+
+.myList a {
+    color: black;
+    margin: 15px;
+}
+
+.toggleLine {
+    border: 0.5px solid rgb(128, 128, 128);
+    opacity: 30%;
+}
+
+/* 카테고리 ----------------------------------------------------- */
+
+.category {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-evenly;
+    /* margin-bottom: 30px; */
+}
+
+.tag {
+    list-style: none;
+    text-align: center;
+}
+.tag a {
+    font-size: 13px;
+    color:slategrey;
+}
+
+.icon {
+    color: slategray;
+    width: 30px;
+    /* height: 20px; */
+}
+
+.bg {
+    width:200px;
+    padding: 10px 0px;
+}
+
+/* 메인페이지 --------------------------------------------------------------- */
+
+.content {
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    max-width: var(--large-width);
+    min-height: 30vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.content a {
+    flex: 1;
+    margin: 10px;
+    display: block;
+    border: solid 1px rgb(0, 0, 0);
+    border: solid 1px var(--gray-color);
+    color: inherit;
+    text-decoration: none;
+}
+
+.content a:hover {
+    opacity: 0.8;
+    background-color: rgba(206, 206, 206, 0.3);
+}
+
+.article {
+    border: 1.5px solid gray;
+    height: 250px;
+    width: 250px;
+    margin: 20px;
+    overflow: hidden;
+}
+
+.img {
+    height: 180px;
+    border-bottom: 1px solid gray;
+}
+
+.img .room {
+    width: 230px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.info {
+    padding:5px 2px 2px 2px;
+}
+
+.info div {
+    padding: 2px;
+}
+
+.title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.date {
+    font-size: 11px;
+}
+
+.price {
+    font-size: 14px;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+.grade {
+    font-size: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 2px 5px 4px;
+}
+
+.score {
+    padding-left: 50px;
+}
+
+.star {
+    padding-right: 30px;
+}
+
+/* 슬라이드 css는 맨 아래에  */
+
+
+/* 로그인 페이지 ----------------------------------------- */
+.loginform {
+    display: flex;
+    width: 350px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px 0;
+}
+
+.loginform p {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.logininput {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.logininput input {
+    width: 300px;
+    height: 40px;
+    /* border: none;
+    border-bottom: 1.5px solid rgb(110, 110, 110); */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.sr-only {
+    position: relative !important;
+    height: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 5px 0 !important;
+}
+
+
+.loginIDbtn {
+    text-align: center;
+    width: 350px;
+    text-decoration: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: white;
+    cursor: pointer;
+}
+
+.btn {
+    width: 306px;
+    height: 44px;
+    margin: 25px 10px;
+
+    background-color: black;
+    border-radius: 5px;
+    border: none;
+}
+
+.btn:hover {
+    /* opacity: 0.3; */
+    background-color: rgba(29, 29, 29, 0.822);
+}
+
+.btn p {
+    text-decoration: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: white;
+    cursor: pointer;
+}
+
+.loginA {
+    padding-bottom: 70px;
+    display: flex;
+    justify-content: center;
+}
+
+.loginA a: hover {
+        opacity: 0.8;
+        background-color: rgba(206, 206, 206, 0.3);
+}
+
+.login p {
+    display: block;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0 0 30px 0;
+}
+
+.loginbtn {
+    background-color: white;
+    border: 1px solid rgb(95, 95, 95);
+    padding: 3px 50px;
+    border-radius: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+}
+
+.loginimg {
+    width: 40px;
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.loginbtn p {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+}
+
+.loginbtn a {
+    display: flex;
+}
+
+.signupinfo {
+    display: flex;
+    justify-content: center;
+}
+
+.signupinfo p {
+    margin: 0 10px;
+    font-size: 14px;
+}
+
+.signupinfo a {
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+}
+
+/* 마이페이지 -------------------------------------------------- */
+.mypage h1 {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px 0 10px 0;
+}
+
+.profileBG {
+    background-color: #d9d9d9;
+    max-width: var(--small-width);
+    height: auto;
+    border-radius: 20px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    align-items: center;
+    padding: 15px 30px;
+    justify-content: space-between;
+}
+
+.profileimg {
+    width: 60px;
+    height: 60px;
+}
+.userinfo {
+    margin: 0 30px;
+}
+
+.userID {
+    display: flex;
+    align-items: center;
+}
+
+.userID p {
+    padding: 3px 30px;
+}
+
+.userP {
+    padding: 3px 17px !important;
+}
+
+.userID h2 {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.userdiv {
+    padding-left: 30px;
+}
+
+.userdiv1 {
+    padding-left: 17px;
+}
+
+.usermodify {
+    display: inline-grid;
+}
+
+.usermodify button {
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+.usermodify a {
+    padding: 3px;
+}
+
+
+.usermodify button:hover {
+    background-color: rgba(29, 29, 29, 0.822);
+}
+
+.booklist {
+    margin: 100px 0;
+}
+.bookimg {
+    width: 150px;
+    height: 150px;
+}
+
+.mypage h2 {
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+.mypage p {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.mypage h3 {
+    font-size: 11px;
+    font-weight: 100;
+    padding-bottom: 15px;
+}
+
+.booklist h4 {
+    font-size: 9px;
+    padding: 5px;
+    border: 1px solid rgb(86, 237, 182);
+    color: #fff;
+    background-color: rgb(86, 237, 182);
+    border-radius: 30px;
+    width: 40px;
+}
+
+.profileTie {
+    display: inline-flex; align-items: center;
+}
+
+.bookinfo {
+    padding-left: 20px;
+}
+
+.booking {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+/* 글쓰기 페이지 ------------------------------------------------*/
+
+.post {
+    padding-bottom: 150px;
+}
+.postA {
+    display: flex;
+    justify-content: space-around;
+    margin: 50px 0  ;
+}
+
+.postA h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.postA button {
+    background-color: black;
+    width: 80px;
+    height: 35px;
+    color: white;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.postA button: hover {
+    background-color: rgba(29, 29, 29, 0.822);
+    cursor: pointer;
+}
+
+
+
+.postB {
+    max-width: var(--small-width);
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.postC {
+    width: var(--small-width);
+    display: grid;
+    margin: auto;
+}
+
+.post input {
+    border: none;
+    border-bottom: 1.5px solid #000;
+}
+
+.post textarea {
+    border: none;
+    border-bottom: 1.5px solid #000;
+}
+
+.posttitle {
+    height: 50px;
+    width: 100%;
+}
+
+.postcontent {
+    height: 300px;
+    width: 100%;
+}
+
+.postdiv {
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: var(--small-width);
+        margin: auto;
+}
+.postC input {
+    height: 30px;
+}
+
+.form-group {
+    width: 100%;
+        margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #888;
+}
+
+.custom-file {
+    padding-top: 10px;
+}
+
+.postdiv span {
+        width: 100%;
+        color: #888888;
+        font-size:14px;
+}
+
+.uploadResult {
+        border-radius: 10px;
+        background-color: #ededed;
+}
+
+.bottom-line, .date, .time, .writeprice, .people, .address, .email, .phone {
+    padding: 5px;
+    width: 100%;
+}
+
+.address {
+    display: flex;
+        flex-direction: column;
+}
+
+.writebtn {
+    background-color: black;
+        color: white;
+        padding: 0 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        cursor: pointer;
+        margin: 0 10px;
+}
+
+/* #write_btn {
+    margin: 30px;
+        width: 250px;
+        height: 50px;
+        background-color: black;
+        border-radius: 10px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        cursor: pointer;
+}
+
+#write_btn: hover {
+    background-color: rgba(29, 29, 29, 0.822);
+    cursor: pointer;
+} */
+
+/* 상세페이지 (상단 문의/예약)------------------------------------- */
+
+.detail {
+    margin-top: 50px;
+    max-width: var(--large-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+.detailA {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgview {
+    width: 400px;
+    height: 400px;
+    padding-left: 10px;
+    object-fit: cover;
+}
+
+@media (max-width:768px) {
+    .detailA {
+        display: grid;
+        padding-bottom: 30px;
+        width: 100%;
+        height: auto;
+    }
+
+    .imgview {
+        margin: auto;
+        padding-bottom: 30px;
+        width: 100%;
+        height: auto;
+        padding-left: 0;
+    }
+}
+.detailA1 {
+    padding: 0 30px;
+    width: 400px;
+}
+
+@media (max-width: 768px) {
+    width: 80%;
+}
+
+.detailA2 {
+    display: flex;
+    padding: 10px 0;
+}
+
+.detailA2 h1 {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.detailA2 i {
+    padding: 0 5px;
+}
+
+.detailA2 a {
+    text-decoration: none;
+    color: #000;
+    padding-left: 10px;
+}
+
+.detailA3 {
+    padding: 10px 0;
+}
+
+.detailA3 h4 {
+    font-size: 12px;
+    font-weight: 300;
+    padding-bottom: 10px;
+}
+.detailA3 p {
+    line-height: 1.8em;
+}
+.detailA4 {
+    display: grid;
+    padding-top: 30px;
+}
+
+.detailA4 p {
+    font-size: 12px;
+    padding-right: 10px;
+}
+
+.detailA5 {
+    display: grid;
+}
+.detailA6 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.detailA6 p {
+    padding: 0 3px;
+}
+
+.detailA5 img {
+    width: 30px;
+    height: 30px;
+}
+
+.detailA7 button {
+    width: 100%;
+    height: 50px;
+    background-color: black;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    margin: 3px;
+}
+
+.detailA7 button:hover {
+    background-color: rgba(29, 29, 29, 0.822);
+    cursor: pointer;
+}
+
+/* .profileTie {
+    display: inline-flex; align-items: center;
+} */
+/* 상세페이지 CSS 가져갈때 ^ 이거도 가져가야 호스트 프로필 flex 적용됨  */
+
+
+/* 상세페이지 (이용후기) -------------------------------------------*/
+.detailB {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /*margin-top: 50px;*/
+    padding: 20px;
+    padding-bottom: 50px;
+}
+
+.detailB1 h2 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.write {
+    padding: 20px;
+}
+
+.detailB p {
+    font-size: 14px;
+    line-height: 1.3em;
+}
+
+.detailB1 {
+    display: flex;
+    padding: 10px 0 ;
+    align-items: baseline;
+}
+
+.detailB1 p {
+    padding: 0 3px;
+}
+
+.detailB2 h2 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.detailB2 h3 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.detailB2 h4 {
+    font-size: 10px !important;
+    color: #A4A4A4;
+    font-weight: 300;
+}
+
+.detailB2 {
+    padding: 10px 0;
+}
+.detailB2 img {
+    width: 40px;
+    padding-right: 20px;
+}
+
+.paging {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.paging a {
+    padding: 0 5px;
+    color: #b2b2b2;
+}
+
+.paging a:hover {
+    color: #000;
+}
+
+.paging p {
+    font-weight: bold;
+}
+
+
+/* 상세페이지 (공간소개 / 주의사항) ----------------------------------*/
+.detailC {
+    display: grid;
+    max-width: 1160px;
+    margin: auto;
+    padding: 30px 20px;
+}
+
+.detailC h2 {
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.detailC p {
+    line-height: 1.8em;
+}
+
+/* 상세페이지 (지도) ---------------------------------------------- */
+.detailE {
+    display: grid;
+    max-width: 1160px;
+    margin: auto;
+    padding: 20px;
+}
+
+.detailE h2 {
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.detailE p {
+    padding: 10px 0;
+}
+
+.detailE iframe {
+    width: 100%;
+}
+
+/* 회원가입 페이지 (이용약관 체크박스) ---------------------------*/
+/* input박스는 로그인 페이지 css사용 */
+
+.signupform {
+    display: flex;
+    width: 320px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px 0;
+}
+
+.signupform p {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+#confirm_email_btn, #confirm_nickName_btn {
+    cursor: pointer;
+    width: 60px;
+    height: 30px;
+    padding: 0px;
+    border-radius: 30px;
+    font-size: 10px;
+    font-weight: 100;
+    margin: 10px;
+}
+
+.check {
+    margin-right: auto;
+    padding: 0 20px;
+}
+
+.check a {
+    display: inline-block;
+    text-decoration: none;
+    color: #000;
+}
+
+.check p {
+    font-size: 6px;
+    font-weight: 300;
+    color: #929292;
+    margin: 0;
+}
+
+.check label {
+    font-size: 10px;
+    font-weight: bold;
+    color: #929292;
+}
+
+.confirm {
+    display: flex;
+    align-items: center;
+}
+
+
+/* --푸터 CSS -------------------------------------------------- */
+
+.footer {
+    /* position: absolute; */
+    /* bottom: 0px; */
+    /* width: 100%; */
+    /* height: 150px; */
+    background-color: #d9d9d9;
+    display: block;
+}
+
+.basiccontainer {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: var(--large-width);
+    margin: auto;
+    padding: 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+.footA {
+    display: inline-block;
+}
+
+.footer p {
+    margin: 0.2em;
+    font-size: 10px;
+    color: rgb(114, 114, 114);
+    line-height: 1.3em;
+}
+
+.footB {
+    /* display: flex; */
+    display: block !important;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 12px;
+    color: rgb(114, 114, 114);
+    font-weight: 700;
+    align-items: center;
+}
+
+.footB a {
+    margin: 0.3em;
+    text-decoration: none;
+    color: rgb(110, 110, 110);
+}
+
+.footB a:hover {
+    color: #000;
+}
+
+.footlogo img {
+    width: 150px;
+}
+
+.footul {
+    display: flex;
+    /* margin: 0 30px; */
+
+}
+
+.footul li {
+    margin: 0 10px 0 0;
+    padding: 0.3em;
+    /* display: block; */
+}
+
+.footC{
+    display: block;
+    width: 1000px;
+}
+
+.footD {
+    margin: auto;
+    padding-top: 10px;
+}
+
+/* 메인페이지 슬라이드 ----------------------------------------------- */
+
+.slick {
+    height: 400px;
+    position: relative;
+}
+
+.bn {
+    width: 100%;
+    height: 400px;
+}
+
+@media (max-width:768px){
+    .slick {
+        height: 200px;
+    }
+
+    .bn {
+        height: 200px;
+    }
+
+    .slideimg {
+        height: 200px;
+    }
+}
+
+.slick > .slide > .bn {
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    opacity:0;
+    visibility:hidden;
+    transition:opacity 1s, visibility 1s;
+}
+
+.slick > .slide > .bn.active {
+    opacity:1;
+    visibility:visible;
+}
+
+
+/* 슬라이더 페이지 버튼 */
+.slick > .page-btns {
+    position: absolute;
+    right: 10%;
+    bottom: 5%;
+}
+
+.slick > .page-btns > .page-btn {
+    color:#fff;
+    display:inline-block;
+    cursor:pointer;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+}
+
+.slick > .page-btns > .next-btn {
+    margin-left:60px;
+}
+
+.slick > .page-btns > .page-btn > i {
+    display:block;
+    font-size:20px;
+}
+
+/* 슬라이더 페이지 번호 */
+.slick > .page-btns > .page-no {
+    position:absolute;
+    top:2px;
+    left:50%;
+    transform:translateX(-50%);
+    color:var(--dark-main-color);
+}
+
+.slick > .slide > .page-btns > .page-no > span {
+    display:inline-block;
+
+    font-size:18px;
+}
+
+.slideimg {
+    max-height: 400px;
+}
+
+.slidetxt {
+    padding: 2.5rem;
+}
+
+.slidetxt h1{
+    font-size: 36px;
+    font-weight: bold;
+    padding: 1.5rem 0;
+}
+
+.slidetxt p {
+    line-height: 1.3em;
+}
+
+.zxcv {
+    display: flex;
+    /*max-width: 1200px;*/
+    flex-direction: row-reverse;
+
+}
+
+.asdf {
+    display: flex;
+    width: 250px;
+    height: 250px;
+    flex-direction: column
+}

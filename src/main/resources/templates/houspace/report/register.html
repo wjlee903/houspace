@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/bootstrapBasic :: setContent(~{this::content} )}">
+
+    <th:block th:fragment="content">
+        <div>
+            <a th:href="@{/houspace/report/list}" style="text-decoration:none"><h3>고객불만 및 개선사항 접수</h3></a>
+            <p>고객님의 불만 및 개선사항을 접수해주시면, 담당자를 통해 신속하게 조치하겠습니다.</p>
+        </div>
+        <form th:action="@{/houspace/report/register}" th:method="post">
+            <!--비밀글 체크 박스  -->
+            <div class="form-check form-check-inline mt-3">
+                <input class="form-check-input" type="checkbox" name="secret" id="secret" checked>
+                <label class="form-check-label">비밀글 설정</label>
+            </div>
+
+            <!--문의글 종류  -->
+            <div class="form-group">
+                <label>구분</label>
+            <select class="custom-select" name="category">
+                <option name="suggest" value="건의 사항">건의 사항</option>
+                <option name="privacy" value="개인 정보 관련">개인 정보 관련</option>
+                <option name="discomfort" value="이용 불편 사항">이용 불편 사항</option>
+                <option name="complaints" value="호스트 불만 사항">호스트 불만 사항</option>
+                <option name="site" value="사이트 이용 불만 사항">사이트 이용 불만 사항</option>
+                <option name="etc" value="기타 문의">기타 문의</option>
+            </select>
+            </div>
+
+            <!--제목  -->
+            <div class="form-group">
+                <label >제목</label>
+                <input type="text" class="form-control" name="title" placeholder="제목을 입력하세요.">
+            </div>
+            <!--내용  -->
+            <div class="form-group">
+                <label >내용</label>
+                <p>※ 신속하고 정확한 처리를 위하여 6하 원칙에 따라 사실관계를 명확하게 입력하여 주시길 바랍니다.
+                    최대 입력 글자수는 3000글자 입니다.</p>
+                <p>※ 내용 작성시 본인이나 타인의 기본정보, 연락처, 주소 등 개인정보가 포함되지 않도록 주의해 주시기 바랍니다.</p>
+                <p>※ 특히 타인의 인적 사항을 당사자 동의 없이 입력하지 않도록 주의해 주시기 바랍니다.</p>
+                <textarea class="form-control" rows="5" name="content"></textarea>
+            </div>
+            <!--작성자  -->
+            <div class="form-group">
+                <label >작성자</label>
+                <input type="text" class="form-control" name="writer" placeholder="이름을 입력하세요.">
+            </div>
+            <!--등록 버튼  -->
+            <button type="submit" class="btn btn-primary">등록</button>
+        </form>
+
+    </th:block>
+
+</th:block>

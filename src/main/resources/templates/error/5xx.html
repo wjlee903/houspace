@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOUSPACE</title>
+    <th:block th:replace="layout/basic :: css"></th:block>
+
+</head>
+
+<body>
+<div class="main">
+    <header>
+        <div class="head">
+            <div class="logo">
+                <a href="/houspace/main"><img th:src="@{/project/img/자산 2.png}" alt=""></a>
+            </div>
+
+            <div class="account">
+                <a href="/houspace/write">
+                    <img th:src="@{/project/img/pen.png}" alt="" class="pen">
+                </a>
+                <a href="/houspace/mypage" class="admin">
+                    <img th:src="@{/project/img/user.png}" alt="" class="user">
+                </a>
+            </div>
+        </div>
+
+        <div class="line"></div>
+    </header>
+    <style>
+            #error_img {
+                display: block;
+                margin: auto;
+            }
+
+            #error_title {
+                text-align: center;
+                font-size: x-large;
+            }
+
+            #error_link {
+                background-color: black;
+                color: white;
+            }
+        </style>
+
+    <div class="contents">
+
+        <div style="margin-bottom: 20px">
+            <img id="error_img" class="error" th:src="@{/project/img/404error.jpg}"
+                 style="display: block; margin: auto;" alt="404error">
+        </div>
+        <div style="margin-bottom: 20px">
+            <h1 id="error_title" class="error">죄송합니다. 경로에 문제가 생겨 확인중입니다. 다시 한번 시도해보시기바랍니다.*^^*</h1>
+        </div>
+        <div style="text-align:center; margin-bottom: 20px;">
+            <a id="error_link" class="error" tH:href="@{/houspace/loginForm}">로그인페이지로 가기</a>
+        </div>
+
+        <div class="login">
+            <p>SNS로 간편하게 로그인하기</p>
+            <div class="loginA">
+                <!--                     구글 로그인-->
+
+
+                <!-- 수정 : '구글 로그인' 버튼 클릭하면 구글 로그인 페이지로 이동 (오채영) -------------------------------------------------------------->
+                <a href="/oauth2/authorization/google">
+                    <img th:src="@{/project/img/google.png}" alt="" class="loginimg">
+                </a>
+                <!-- 수정 : '구글 로그인' 버튼 클릭하면 구글 로그인 페이지로 이동 (오채영) -->
+
+
+                <!-- 네이버 로그인 -->
+                <a href="#">
+                    <img th:src="@{/project/img/naver.png}" alt="" class="loginimg">
+                </a>
+
+
+                <!-- 카카오 로그인 -->
+                <a href="#">
+                    <img th:src="@{/project/img/kakao.png}" alt="" class="loginimg">
+                </a>
+            </div>
+
+            <div class="signupinfo">
+                <p>아직 하우스페이스의 회원이 아니신가요?</p>
+                <p><a th:href="@{/houspace/joinForm}">회원가입</a></p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <footer class="footer">
+    <div class="container">
+        <div class="footA">
+            <div class="footlogo"><img src="img/자산 2.png" alt=""></div>
+        </div>
+
+        <nav class="footB">
+            <div class="footul">
+                    <ul>
+                        <li><a href="#">이용약관</a></li>
+                        <li><a href="#">개인정보처리방침</a></li>
+                        <li><a href="#">사업자정보확인</a></li>
+                    </ul>
+
+                    <ul>
+                        <li><a href="">인재채용</a></li>
+                        <li><a href="#">자주묻는질문</a></li>
+                        <li><a href="#">신고하기</a></li>
+                    </ul>
+            </div>
+        </nav>
+
+        <div class="footC">
+            <p>상호명: 주식회사 하우스페이스   |   대표: OOO    |   사업자등록번호: 123-45-67890    |    통신판매업신고번호: 2022-서울강남-12345</p>
+            <p>사업자등록정보 영업소재지: 서울특별시 강남구 삼성로    |    이메일: support@houspace.kr    |    대표전화: 1234-5678(평일 오후 2시 ~ 오후 6시)</p>
+        </div>
+
+        <div class="footD">
+            <p>하우스페이스는 통신판매중개자이며 통신판매의 당사자가 아닙니다. 따라서 하우스페이스는 공간 거래정보 및 거래에 대해 책임지지 않습니다.</p>
+        </div>
+    </div>
+</footer> -->
+</div>
+
+</body>
+
+</html>

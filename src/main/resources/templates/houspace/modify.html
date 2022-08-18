@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+
+    <th:block th:fragment="content">
+
+        <head>
+            <meta charset="UTF-8">
+            <title>content</title>
+        </head>
+        <body>
+
+        <h1>Content</h1>
+
+        <div>
+            <form th:action="@{/houspace/main}">
+                <button>메인</button>
+            </form>
+        </div>
+
+        <div>
+            <form th:action="@{/houspace/delete}">
+                <button>삭제</button>
+            </form>
+        </div>
+
+
+        </body>
+        <script th:src="@{/project/a.js}"></script>
+    </th:block>
+</html>

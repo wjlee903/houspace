@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
+
+    <th:block th:fragment="content">
+        <!-- BootStrap -------------------------------------------------------->
+        <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min2.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/font-awesome/css/font-awesome.min.css}" />
+
+        <script type="text/javascript" th:src="@{/js/jquery-1.10.2.min.js}"></script>
+        <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min2.js}"></script>
+        <!-- BootStrap -------------------------------------------------------->
+
+        <div class="category">
+            <li class="tag" id="cgNum_4">
+                <div class="bg">
+                    <a th:href="@{/houspace/search(cgNum=4)}">
+                        <img class="icon" th:src="@{/project/img/camp.jpg}" alt="">
+                        <div>숲</div>
+                    </a>
+                </div>
+            </li>
+            <li class="tag" id="cgNum_2">
+                <div class="bg">
+                    <a th:href="@{/houspace/search(cgNum=2)}">
+                        <img class="icon" th:src="@{/project/img/home.jpg}" alt="">
+                        <div>산</div>
+                    </a>
+                </div>
+            </li>
+            <li class="tag" id="cgNum_1">
+                <div class="bg">
+                    <a th:href="@{/houspace/search(cgNum=1)}">
+                        <img class="icon" th:src="@{/project/img/lake.jpg}" alt="">
+                        <div>강</div>
+                    </a>
+                </div>
+            </li>
+            <li class="tag" id="cgNum_3">
+                <div class="bg">
+                    <a th:href="@{/houspace/search(cgNum=3)}">
+                        <img class="icon" th:src="@{/project/img/ocean.jpg}" alt="">
+                        <div>바다</div>
+                    </a>
+                </div>
+            </li>
+            <li class="tag">
+                <div class="bg">
+                    <a href="#">
+                        <img class="icon" th:src="@{/project/img/island.jpg}" alt="">
+                        <div>섬</div>
+                    </a>
+                </div>
+            </li>
+        </div>
+
+        <!--
+        <div class="category">
+            <li class="tag">
+                <a href="#">
+                    <img class="icon" th:src="@{/project/img/camp.jpg}" alt="">
+                    <div>캠핑</div>
+                </a>
+            </li>
+            <li class="tag">
+                <a href="#">
+                    <img class="icon" th:src="@{/project/img/home.jpg}" alt="">
+                    <div>집</div>
+                </a>
+            </li>
+            <li class="tag">
+                <a href="#">
+                    <img class="icon" th:src="@{/project/img/lake.jpg}" alt="">
+                    <div>호수</div>
+                </a>
+            </li>
+            <li class="tag">
+                <a href="#">
+                    <img class="icon" th:src="@{/project/img/ocean.jpg}" alt="">
+                    <div>바다</div>
+                </a>
+            </li>
+            <li class="tag">
+                <a href="#">
+                    <img class="icon" th:src="@{/project/img/island.jpg}" alt="">
+                    <div>섬</div>
+                </a>
+            </li>
+        </div>
+        -->
+
+
+        <div class="slick">
+            <div class="slide">
+                <div class="bn active" style="background-color:#be96e6;">
+                    <div style="display: flex; justify-content: center;">
+                        <div class="slidetxt">
+                            <h1>하우스페이스 상반기 어워드</h1>
+                            <p>2022년 하우스페이스 회원들에게</p>
+                            <p>가장 많은 사랑을 받은 공간은?</p>
+                        </div>
+                        <img th:src="@{/project/img/1.png}" alt="" class="slideimg">
+                    </div>
+                </div>
+                <div class="bn" style="background-color:#c2deff;">
+                    <div style="display: flex; justify-content: center;">
+                        <div class="slidetxt">
+                            <h1>사진을 찍을 때는 하우스페이스로!</h1>
+                            <p>실패 없는 인생 샷</p>
+                            <p>하우스페이스 특별 기획전!</p>
+                        </div>
+                        <img th:src="@{/project/img/2.png}" alt="" class="slideimg">
+                    </div>
+                </div>
+                <div class="bn" style="background-color: #96e6c6;">
+                    <div style="display: flex; justify-content: center;">
+                        <div class="slidetxt">
+                            <h1>지금 바로 내 공간 등록하기!</h1>
+                            <p>지금 바로 하우스페이스에</p>
+                            <p>내 공간을 등록해보세요</p>
+                        </div>
+                        <img th:src="@{/project/img/3.png}" alt="" class="slideimg">
+                    </div>
+                </div>
+                <div class="bn" style="background-color: #4979ff;">
+                    <div style="display: flex; justify-content: center;">
+                        <div class="slidetxt">
+                            <h1>무더운 여름 특별 세일!</h1>
+                            <p>더운 여름에도 시원하게</p>
+                            <p>최대 50% 할인</p>
+                        </div>
+                        <img th:src="@{/project/img/4.png}" alt="" class="slideimg">
+                    </div>
+                </div>
+                <div class="bn" style="background-color: #c0c0c0;">
+                    <div style="display: flex; justify-content: center;">
+                        <div class="slidetxt">
+                            <h1>1만원 할인 받는 법!</h1>
+                            <p>카카오 페이로 결제하고</p>
+                            <p>추가 할인 받으세요</p>
+                        </div>
+                        <img th:src="@{/project/img/5.png}" alt="" class="slideimg">
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-btns">
+                <button class="page-btn prev-btn"><i class="xi-angle-left"></i></button>
+                <button class="page-btn next-btn"><i class="xi-angle-right"></i></button>
+                <div class="page-no">
+                    <span class="current-slide-no"></span>
+                    <span class="slash">/</span>
+                    <span class="total-slide-no"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="content">
+
+            <article th:each="dto : ${result.dtoList}">
+                <a th:href="@{/houspace/view(bNum=${dto.bNum}, cgNum=${dto.cgNum}, page=${result.page})}">
+                    <div class="img">
+                        <img class="room" th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                            th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">
+                    </div>
+
+                    <div class="info">
+                        <div class="title">
+                            [[${dto.title}]]
+                        </div>
+                        <div class="date">
+                            [[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]
+                        </div>
+                    </div>
+
+                    <div class="grade">
+                        <div class="price">
+                            [[${dto.price}]]
+                        </div>
+
+                        <div class="score"><i class="fas fa-comment-dots"> [[${dto.reviewCnt}]] </i></div>
+                        <div class="star"><i class="fas fa-star"> [[${dto.avg}]] </i></div>
+                    </div>
+                </a>
+            </article>
+
+        </div>
+
+        <!--    페이징 처리 (0705 오채영) ------------------------------------------------------------->
+        <ul class="pagination h-100 justify-content-center align-items-center" style="display:table; margin:20px auto;">
+            <li class="page-item " th:if="${result.prev}">
+                <a class="page-link"
+                    th:href="@{/houspace/search(cgNum = ${pageRequestDTO.cgNum}, page= ${result.start -1})}"
+                    tabindex="-1">
+                    Previous
+                </a>
+            </li>
+
+            <li th:class=" 'page-item ' + ${result.page == page? 'active' : ''} " th:each="page: ${result.pageList}">
+                <a class="page-link" th:href="@{/houspace/search(cgNum = ${pageRequestDTO.cgNum}, page = ${page})}">
+                    [[${page}]]
+                </a>
+            </li>
+
+            <li class="page-item" th:if="${result.next}">
+                <a class="page-link"
+                    th:href="@{/houspace/search(cgNum = ${pageRequestDTO.cgNum}, page= ${result.end + 1})}">
+                    Next
+                </a>
+            </li>
+        </ul>
+        <!-- 페이징 처리 (0705 오채영) -->
+
+        <script th:src="@{/project/a.js}"></script>
+        <script th:inline="javascript">
+            let cgNum = [[${ cgNum }]];
+            let cgNum_1 = $("#cgNum_1");
+            let cgNum_2 = $("#cgNum_2");
+            let cgNum_3 = $("#cgNum_3");
+            let cgNum_4 = $("#cgNum_4");
+            if (cgNum == 1) {
+                cgNum_1.attr("style", "background-color: #cbd4cd");
+            }
+            if (cgNum == 2) {
+                cgNum_2.attr("style", "background-color: #cbd4cd");
+            }
+            if (cgNum == 3) {
+                cgNum_3.attr("style", "background-color: #cbd4cd");
+            }
+            if (cgNum == 4) {
+                cgNum_4.attr("style", "background-color: #cbd4cd");
+            }
+
+
+        </script>
+
+    </th:block>
+
+</th:block>
